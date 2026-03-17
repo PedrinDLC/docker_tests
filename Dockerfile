@@ -30,6 +30,9 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 FROM debian:trixie-slim AS development
 
+ARG CURRENT_ENV=development # this comes from .env
+ENV CURRENT_ENV=${CURRENT_ENV}
+
 ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update \

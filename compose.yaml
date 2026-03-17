@@ -28,33 +28,10 @@ services:
             - __pycache__/
         - action: rebuild
           path: ./uv.lock
-    depends_on:
-      psql:
-        condition: service_healthy
     networks:
       main_network:
         aliases:
           - ${DC_APP_IMAGE_NAME}
-  ################################################################################
-
-  psql:
-    container_name: psql
-    hostname: psql
-    image: postgres:18
-    restart: unless-stopped
-    env_file:
-      - .env
-    volumes:
-      - ./_data/postgresql:/var/lib/postgresql
-    ports:
-      - 5432:5432
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-
   ################################################################################
 
   nginx:

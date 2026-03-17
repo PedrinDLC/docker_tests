@@ -32,7 +32,7 @@ exclude = ["venv", ".venv", "env", ".env", "node_modules", "__pycache__"]
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["D", "T201", "INP001"]
+ignore = ["D", "T201", "INP001", "EXE002"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["ANN201", "S101"]
@@ -56,7 +56,8 @@ exclude = [
     "**/env",
     "**/.env",
     "**/node_modules",
-    "**/__pycache__",
+    "**/__pycache__", 
+    "**/.*",
 ]
 venv = ".venv"
 venvPath = "."

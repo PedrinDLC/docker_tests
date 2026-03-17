@@ -1,11 +1,11 @@
 services:
-  dockeryt:
+  dockerlabs:
     pull_policy: never
     image: ${DC_APP_IMAGE_NAME}
     restart: unless-stopped
     build:
       context: .
-      dockerfile: ${DC_DOCKERFILE}
+      dockerfile: "${DC_DOCKERFILE}"
       target: development
       args:
         - CURRENT_ENV=${CURRENT_ENV}
@@ -20,7 +20,7 @@ services:
       start_period: 30s
     develop:
       watch:
-        - action: sync+restart # this depends on the project
+        - action: sync+restart
           path: .
           target: /app
           ignore:
@@ -32,7 +32,6 @@ services:
       main_network:
         aliases:
           - ${DC_APP_IMAGE_NAME}
-  ################################################################################
 
   nginx:
     container_name: nginx
@@ -57,8 +56,6 @@ services:
     networks:
       - main_network
 
-  ################################################################################
-
   certbot:
     image: certbot/certbot:v5.2.2
     container_name: certbot
@@ -70,9 +67,6 @@ services:
     entrypoint: /scripts/certbot_renewal.sh
     networks:
       - main_network
-
-  ################################################################################
-
 networks:
   main_network:
     ipam:
